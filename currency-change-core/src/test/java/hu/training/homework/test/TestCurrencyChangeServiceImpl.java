@@ -17,15 +17,29 @@ import hu.training.homework.CurrencyChangeServiceImpl;
 import hu.training.homework.CurrencyRate;
 import hu.training.homework.CurrencyRates;
 import hu.training.homework.CurrencyRatesMock;
+import hu.training.homework.CurrencyRatesService;
+import hu.training.homework.CurrencyRatesServiceImpl;
 
 public class TestCurrencyChangeServiceImpl {
 	
 	public CurrencyChangeService currencyChangeService = null;
 	public CurrencyRates currencyRates = null;
+	public CurrencyRatesService currencyRatesService = null;
+	public Map<Currency, Double> currencyBuyingRates = null;
+	public Map<Currency, Double> currencySellingRates = null;
 	@Before
 	public void init() {
 		currencyChangeService = new CurrencyChangeServiceImpl();
+		currencyRatesService = new CurrencyRatesServiceImpl();
 		currencyRates = new CurrencyRatesMock();
+		currencyBuyingRates = new HashMap<>();
+		currencyBuyingRates.put(Currency.EUR, 308.66);
+		currencyBuyingRates.put(Currency.USD, 270.57);
+		currencyBuyingRates.put(Currency.GBP, 356.09);
+		currencySellingRates = new HashMap<>();
+		currencySellingRates.put(Currency.EUR, 326.45);
+		currencySellingRates.put(Currency.USD, 286.16);
+		currencySellingRates.put(Currency.GBP, 376.60);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeOrZeroAmountBuying() {
@@ -77,20 +91,18 @@ public class TestCurrencyChangeServiceImpl {
 	}
 	@Test
 	public void testGetAllCurrencyBuyingRate() {
-		Map<Currency, Double> currencyRatesTemp = new HashMap<>();
-		currencyRatesTemp.put(Currency.EUR, 308.66);
-		currencyRatesTemp.put(Currency.USD, 270.57);
-		currencyRatesTemp.put(Currency.GBP, 356.09);
-		
-		assertThat(currencyRates.getAllCurrencyBuyingRate(), is(currencyRatesTemp));
+		assertThat(currencyRates.getAllCurrencyBuyingRate(), is(currencyBuyingRates));
 	}
 	@Test
 	public void testGetAllCurrencySellingRate() {
-		Map<Currency, Double> currencyRatesTemp = new HashMap<>();
-		currencyRatesTemp.put(Currency.EUR, 326.45);
-		currencyRatesTemp.put(Currency.USD, 286.16);
-		currencyRatesTemp.put(Currency.GBP, 376.60);
-		
-		assertThat(currencyRates.getAllCurrencySellingRate(), is(currencyRatesTemp));
+		assertThat(currencyRates.getAllCurrencySellingRate(), is(currencySellingRates));
+	}
+	@Test
+	public void testGetAllCurrencyBuyingRateFromCurrencyRatesService() {
+		assertThat(currencyRatesService.getAllCurrencyBuyingRate(), is(currencyBuyingRates));
+	}
+	@Test
+	public void testGetAllCurrencySellingRateFromCurrencyRatesService() {
+		assertThat(currencyRatesService.getAllCurrencySellingRate(), is(currencySellingRates));
 	}
 }
