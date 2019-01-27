@@ -7,4 +7,11 @@
   </parent>
   <artifactId>currency-change-app</artifactId>
   <name>Currency Change App</name>
+  <dependencies>
+  	<dependency>
+	  	<groupId>hu.training.homework</groupId>
+	  	<artifactId>currency-change-core</artifactId>
+	  	<version>${project.version}</version>
+  	</dependency>
+  </dependencies>
 </project>
