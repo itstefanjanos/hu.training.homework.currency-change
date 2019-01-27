@@ -2,6 +2,8 @@ package hu.training.homework;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+//import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class CurrencyRatesMock {
@@ -13,9 +15,15 @@ public class CurrencyRatesMock {
 		currencyRates.put(Currency.GBP, new CurrencyRate(356.09, 376.60));
 	}
 	public static double getCurrencyBuyingRate(Currency currency) {
+		if (currency == null || !currencyRates.containsKey(currency)) {
+			throw new NoSuchElementException();
+		}
 		return currencyRates.get(currency).getBuyingRate();
 	}
 	public static double getCurrencySellingRate(Currency currency) {
+		if (currency == null || !currencyRates.containsKey(currency)) {
+			throw new NoSuchElementException();
+		}
 		return currencyRates.get(currency).getSellingRate();
 	}
 	public static Map<Currency, Double> getAllCurrencyBuyingRate() {

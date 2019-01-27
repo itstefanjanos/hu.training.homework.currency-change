@@ -15,7 +15,7 @@ public class CurrencyChangeServiceImpl implements CurrencyChangeService {
 		if (amount <= 0.0) {
 			throw new IllegalArgumentException("The amount must be a positive number!");
 		}
-		return CurrencyRatesMock.getCurrencyBuyingRate(currentCurreny) / amount;
+		return CurrencyRatesMock.getCurrencySellingRate(currentCurreny) / amount;
 	}
 
 }
