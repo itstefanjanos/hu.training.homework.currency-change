@@ -6,19 +6,19 @@ public class CurrencyChangeServiceImpl implements CurrencyChangeService {
 		currencyRatesMock = new CurrencyRatesMock();
 	}
 	@Override
-	public double buy(double amount, Currency expectedCurreny) throws IllegalArgumentException {
+	public double buy(double amount, Currency expectedCurrency) throws IllegalArgumentException {
 		if (amount <= 0.0) {
 			throw new IllegalArgumentException("The amount must be a positive number!");
 		}
-		return amount / currencyRatesMock.getCurrencyBuyingRate(expectedCurreny);
+		return amount / currencyRatesMock.getCurrencyBuyingRate(expectedCurrency);
 	}
 
 	@Override
-	public double sell(double amount, Currency currentCurreny) throws IllegalArgumentException {
+	public double sell(double amount, Currency currentCurrency) throws IllegalArgumentException {
 		if (amount <= 0.0) {
 			throw new IllegalArgumentException("The amount must be a positive number!");
 		}
-		return currencyRatesMock.getCurrencySellingRate(currentCurreny) / amount;
+		return currencyRatesMock.getCurrencySellingRate(currentCurrency) / amount;
 	}
 
 }
